@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.Controller;
 import model.Model;
 
 public class View 
@@ -28,14 +29,15 @@ public class View
 	private MenuPanel menuPanel;
 	private JFrame frame;
 	private Model model;
+	private Controller controller;
 
-	public View(Model m) 
+	public View(Controller c) 
 	{
-		model = m;
+		controller = c;
 
 		createGUI();
 		//setupObservers();
-		//setupListeners();
+		setupListeners();
 	}
 
 	
@@ -60,6 +62,12 @@ public class View
 		frame.add(menuPanel,c);
 		frame.add(boardPanel,c);
 		frame.pack();
+	}
+	
+	private void setupListeners()
+	{
+		//boardPanel.setupListeners();
+	//	menuPanel.setupListeners();
 	}
 	
 }

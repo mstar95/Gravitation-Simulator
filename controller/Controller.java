@@ -1,5 +1,10 @@
 package controller;
 
-public class Controller {
+public class Controller 
+{
+	public Controller()
+	{
+		
+	}
 
 }
