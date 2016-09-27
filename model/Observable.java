@@ -13,7 +13,7 @@ public abstract  class Observable
 		observers = new ArrayList<Observer>();
 	}
 	
-	abstract void notifyObservers();
+	protected abstract void notifyObservers();
 	
 	
 	public void addObserver(Observer o) 

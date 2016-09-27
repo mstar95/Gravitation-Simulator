@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.Model;
 import model.Observer;
+import model.Point;
 import view.View;
 
 public class Controller 
@@ -23,11 +24,20 @@ public class Controller
 		}
 	}
 	
-	
 	public void setView(View view)
 	{
 		this.view = view;
 	}
 	
+	public void setPositionOfMouse(Point p)
+	{
+		model.setPositionOfMouse(p);
+	}
+	
+	
+	public void setMousePressedFlag(boolean b)
+	{
+		model.setMousePressedFlag(b);
+	}
 	
 }

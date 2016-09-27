@@ -14,6 +14,7 @@ import java.util.Timer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 import controller.Controller;
@@ -31,7 +32,8 @@ public class View
 	private MenuPanel menuPanel;
 	private JFrame frame;
 	private Controller controller;
-
+	private JLayeredPane lPanel;
+	
 	public View(Controller c) 
 	{
 		controller = c;
@@ -50,24 +52,29 @@ public class View
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		
-		frame.setLayout(new GridBagLayout());
+		lPanel = new JLayeredPane();
+		lPanel.setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
+	   
 		GridBagConstraints c = new GridBagConstraints();
 		
 		boardPanel = new BoardPanel(B_WIDTH,B_HEIGHT);
 		menuPanel = new MenuPanel(M_WIDTH,M_HEIGHT);
+	
+		boardPanel.setBounds(0, 0,B_WIDTH,B_HEIGHT);
+		menuPanel.setBounds(0, B_HEIGHT-M_WIDTH,M_WIDTH,M_HEIGHT);
 		
-		c.anchor = GridBagConstraints.LAST_LINE_START;
-		c.gridx = 0;
-		c.gridy = 1;
+		lPanel.add(boardPanel, JLayeredPane.DEFAULT_LAYER);
+		lPanel.add(menuPanel, JLayeredPane.PALETTE_LAYER);
+		frame.add(lPanel);
 		
-		frame.add(menuPanel,c);
-		frame.add(boardPanel,c);
 		frame.pack();
 	}
 	
 	private void setupListeners()
 	{
-		//boardPanel.setupListeners();
+		BoardMouseListener listener =new BoardMouseListener(controller);
+		boardPanel.addMouseMotionListener(listener);
+		boardPanel.addMouseListener(listener);
 		menuPanel.setupListeners();
 	}
 	
