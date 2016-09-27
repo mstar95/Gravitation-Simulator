@@ -24,6 +24,11 @@ public class Controller
 		}
 	}
 	
+	public void update()
+	{
+		model.update();
+	}
+	
 	public void setView(View view)
 	{
 		this.view = view;
@@ -38,6 +43,11 @@ public class Controller
 	public void setMousePressedFlag(boolean b)
 	{
 		model.setMousePressedFlag(b);
+	}
+	
+	public int getMass()
+	{
+		return view.getMass();
 	}
 	
 }

@@ -1,18 +1,29 @@
 package model;
 
+import java.util.ArrayList;
+
+import controller.Controller;
+
 public class Model extends Observable
 {
-
+	Controller controller;
 	Params params;
 	boolean isFirstClickOfMouse;
 	Vector mouseVector;
+	ArrayList<Planet> planets;
+	int actualMass;
 	
 	public Model()
 	{
 		params = new Params();
 		isFirstClickOfMouse = true;
+		planets = new ArrayList<Planet>();
 	}
 	
+	public void setController(Controller c)
+	{
+		 controller = c;
+	}
 	public Params getParams()
 	{
 		return params;
@@ -26,6 +37,16 @@ public class Model extends Observable
 			o.update(params);
 		}
 		
+	}
+	
+	public void update()
+	{
+		for(Planet p : planets)
+		{
+			PlanetPhysics.move(p);
+		}
+		params.setPlanets(planets);
+		notifyObservers();
 	}
 	
 	public void setPositionOfMouse(Point p)
@@ -43,11 +64,10 @@ public class Model extends Observable
 		notifyObservers();
 	}
 	
-	
 	public void setMousePressedFlag(boolean b)
 	{
 		if(b)
-			params = new Params();
+			params.setMouseVector(new Vector());
 		else
 		{
 			isFirstClickOfMouse = true;
@@ -56,8 +76,23 @@ public class Model extends Observable
 		params.isMousePressed = b;
 	}
 	
+	public void setMass(int m)
+	{
+		actualMass = m;
+	}
+	
+	
 	public void createPlanet()
 	{
-		createPlanet();
+		
+		Planet planet = new Planet(mouseVector.getA().getX(),
+				mouseVector.getA().getY(),
+				mouseVector.getXVec(),mouseVector.getYVec(),controller.getMass());
+		planets.add(planet);
+		params.setPlanets(planets);
+		notifyObservers();
 	}
+	
+	
+	
 }

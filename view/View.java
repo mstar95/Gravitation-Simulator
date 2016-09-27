@@ -57,8 +57,8 @@ public class View
 	   
 		GridBagConstraints c = new GridBagConstraints();
 		
-		boardPanel = new BoardPanel(B_WIDTH,B_HEIGHT);
-		menuPanel = new MenuPanel(M_WIDTH,M_HEIGHT);
+		boardPanel = new BoardPanel(B_WIDTH,B_HEIGHT,controller);
+		menuPanel = new MenuPanel(M_WIDTH,M_HEIGHT,controller);
 	
 		boardPanel.setBounds(0, 0,B_WIDTH,B_HEIGHT);
 		menuPanel.setBounds(0, B_HEIGHT-M_WIDTH,M_WIDTH,M_HEIGHT);
@@ -83,6 +83,11 @@ public class View
 		 ArrayList<Observer> observers = new ArrayList<Observer>();
 		 observers.add(boardPanel);
 		 controller.setupObservers(observers);
+	}
+	
+	public int getMass()
+	{
+		return menuPanel.getMass();
 	}
 	
 }

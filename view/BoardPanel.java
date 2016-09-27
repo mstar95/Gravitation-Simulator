@@ -10,15 +10,18 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import controller.Controller;
 import model.Observer;
 import model.Params;
+import model.Planet;
 
 public class BoardPanel extends JPanel  implements ActionListener, Observer
 {
 	private Params params;
 	private Timer timer;
-	private final int DELAY = 10;
-	public BoardPanel(int width,int height)
+	private Controller controller;
+	private final int DELAY = 20;
+	public BoardPanel(int width,int height,Controller c)
 	{
 		setPreferredSize(new Dimension(width, height));
 		
@@ -28,14 +31,16 @@ public class BoardPanel extends JPanel  implements ActionListener, Observer
 		timer = new Timer(DELAY,this);
 		params = new Params();
 		
-		timer.start();
+		controller = c;
 		
+		timer.start();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) 
 	{
-		 repaint();
+		controller.update();
+		repaint();
 	}
 
 	@Override
@@ -48,15 +53,33 @@ public class BoardPanel extends JPanel  implements ActionListener, Observer
 	{
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        if(params.isMousePressed == true)
-        {
-        	
-        	g2d.setColor(Color.RED);
-        	g2d.drawLine(params.getMouseVector().getA().getX(),
-        		params.getMouseVector().getA().getY(),
-        		params.getMouseVector().getB().getX(),
-        		params.getMouseVector().getB().getY());
-        	repaint();
-        }
+        drawMauseVector(g2d);
+        drawPlanets(g2d);
+        repaint();
      }
+	
+	private void drawMauseVector(Graphics2D g2d)
+	{
+		if(params.isMousePressed == true)
+		{    	
+	       	g2d.setColor(Color.GREEN);
+	       	g2d.drawLine(params.getMouseVector().getA().getX(),
+	       		params.getMouseVector().getA().getY(),
+	       		params.getMouseVector().getB().getX(),
+        		params.getMouseVector().getB().getY());
+        }
+		repaint();
+	}
+	
+	private void drawPlanets(Graphics2D g2d)
+	{
+		if (params.getPlanets() == null)
+			return;
+		for(Planet p : params.getPlanets())
+		{
+			g2d.setColor(p.getType());
+			g2d.fillOval(p.getX(), p.getY(), p.getRadius(), p.getRadius());
+		}
+		repaint();
+	}
 }

@@ -1,4 +1,5 @@
 package model;
+
 /*representation of pair of points*/
 public class Vector 
 {
@@ -33,4 +34,21 @@ public class Vector
 	{
 		this.b = b;
 	}
+	
+	public int getLength()
+	{
+		return new Double(Math.sqrt(Math.pow(a.x - b.x,2) + Math.pow(a.y - b.y,2))).intValue();
+	}
+	
+	public int getXVec()
+	{
+		return (b.x - a.x);
+	}
+	
+	public int getYVec()
+	{
+		return (b.y - a.y);
+	}
+
+	
 }

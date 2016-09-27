@@ -10,23 +10,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import controller.Controller;
+
 public class MenuPanel extends JPanel 
 {
 	private JButton buttonTiny, buttonSmall, buttonMedium, buttonLarge, buttonHuge;
 	private JTextField textMass;
+	private Controller controller;
 	
-	public MenuPanel(int width,int height)
+	public MenuPanel(int width,int height,Controller c)
 	{
 		setPreferredSize(new Dimension(width, height));
 		
 		setBackground(Color.gray);
 		setFocusable(true);
-
+		controller = c;
 		setupButtons();
 	}
 	
@@ -111,5 +115,10 @@ public class MenuPanel extends JPanel
 				textMass.setText("1000000");
 			}
 		});
+	}
+	
+	public int getMass()
+	{
+		return Integer.parseInt(textMass.getText());
 	}
 }

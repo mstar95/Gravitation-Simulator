@@ -38,6 +38,7 @@ public class BoardMouseListener extends MouseInputAdapter
 	public void mousePressed(MouseEvent arg0) 
 	{
 		controller.setMousePressedFlag(true);
+		controller.setPositionOfMouse(new Point(arg0.getX(),arg0.getY()));
 	}
 	
 	@Override

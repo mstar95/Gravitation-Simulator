@@ -16,6 +16,7 @@ public class Main
 				Controller controller = new Controller( model);
 				View  view = new View(controller);
 				controller.setView(view);
+				model.setController(controller);
 			}
 		});
 	}
