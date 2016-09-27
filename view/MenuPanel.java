@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -72,8 +74,42 @@ public class MenuPanel extends JPanel
 		c.anchor = GridBagConstraints.LINE_START;
 		
 		textMass = new JTextField(10);
+		textMass.setText("1000");
 		c.gridx = 1;
 		c.gridy = 0;
 		add(textMass,c);
+	}
+	
+	public void setupListeners()
+	{
+		buttonTiny.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textMass.setText("1");
+			}
+		});
+		
+		buttonSmall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textMass.setText("1000");
+			}
+		});
+		
+		buttonMedium.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textMass.setText("10000");
+			}
+		});
+		
+		buttonLarge.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textMass.setText("100000");
+			}
+		});
+		
+		buttonHuge.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textMass.setText("1000000");
+			}
+		});
 	}
 }

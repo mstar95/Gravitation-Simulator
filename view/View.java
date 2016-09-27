@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Timer;
 
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 
 import controller.Controller;
 import model.Model;
+import model.Observer;
 
 public class View 
 {
@@ -28,7 +30,6 @@ public class View
 	private BoardPanel boardPanel;
 	private MenuPanel menuPanel;
 	private JFrame frame;
-	private Model model;
 	private Controller controller;
 
 	public View(Controller c) 
@@ -36,7 +37,7 @@ public class View
 		controller = c;
 
 		createGUI();
-		//setupObservers();
+		setupObservers();
 		setupListeners();
 	}
 
@@ -67,7 +68,14 @@ public class View
 	private void setupListeners()
 	{
 		//boardPanel.setupListeners();
-	//	menuPanel.setupListeners();
+		menuPanel.setupListeners();
+	}
+	
+	private void setupObservers()
+	{
+		 ArrayList<Observer> observers = new ArrayList<Observer>();
+		 observers.add(boardPanel);
+		 controller.setupObservers(observers);
 	}
 	
 }

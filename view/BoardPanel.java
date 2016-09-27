@@ -7,7 +7,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
-public class BoardPanel extends JPanel  implements ActionListener 
+import model.Observer;
+import model.Params;
+
+public class BoardPanel extends JPanel  implements ActionListener, Observer
 {
 
 	public BoardPanel(int width,int height)
@@ -22,6 +25,12 @@ public class BoardPanel extends JPanel  implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(Params params) {
 		// TODO Auto-generated method stub
 		
 	}
