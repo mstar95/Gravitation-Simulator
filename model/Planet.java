@@ -7,6 +7,8 @@ public class Planet extends Point
 	private int radius;
 	private int velocityX, velocityY;
 	private int mass;
+	private boolean collided;
+
 	private final int velocityScale = 20;
 	
 	public Planet(int x,int y,int vX,int vY,int mass)
@@ -17,13 +19,20 @@ public class Planet extends Point
 		this.setVelocityX(vX);
 		this.setVelocityY(vY);
 		this.mass = mass;
+		calcRadius();
+		collided = false;
+	}
+	
+	public void calcRadius()
+	{
+		if(mass<10)
+			radius = 4;
+		radius =  new Double(Math.log(mass)).intValue();
 	}
 	
 	public int getRadius()
 	{
-		if(mass<10)
-			return 4;
-		return new Double(Math.log(mass)).intValue();
+		return radius;
 	}
 	
 	public Color getType()
@@ -44,6 +53,7 @@ public class Planet extends Point
 
 	public void setVelocityX(int velocityX) 
 	{
+	//	velocityX/=2;
 		this.velocityX = velocityX;
 	}
 
@@ -54,8 +64,29 @@ public class Planet extends Point
 
 	public void setVelocityY(int velocityY) 
 	{
+		//velocityY/=2;
 		this.velocityY = velocityY;
 	}
 	
+	public int getMass()
+	{
+		return mass;
+	}
+
+	public void setMass(int mass) 
+	{
+		this.mass = mass;
+		calcRadius();
+	}
+	
+	public void setCollided(boolean b)
+	{
+		collided = b;
+	}
+	
+	public boolean isCollided()
+	{
+		return collided;
+	}
 	
 }

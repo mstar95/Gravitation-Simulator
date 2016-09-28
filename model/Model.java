@@ -41,10 +41,9 @@ public class Model extends Observable
 	
 	public void update()
 	{
-		for(Planet p : planets)
-		{
-			PlanetPhysics.move(p);
-		}
+		PlanetPhysics.movePlanets(planets);
+		PlanetPhysics.calculateGravityEffect(planets);
+		System.out.println(planets.size());
 		params.setPlanets(planets);
 		notifyObservers();
 	}

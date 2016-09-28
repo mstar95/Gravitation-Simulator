@@ -20,7 +20,7 @@ public class BoardPanel extends JPanel  implements ActionListener, Observer
 	private Params params;
 	private Timer timer;
 	private Controller controller;
-	private final int DELAY = 20;
+	private final int DELAY = 10;
 	public BoardPanel(int width,int height,Controller c)
 	{
 		setPreferredSize(new Dimension(width, height));
