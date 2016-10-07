@@ -29,6 +29,16 @@ public class Controller
 		model.update();
 	}
 	
+	public void clearPlanets()
+	{
+		model.clearPlanets();
+	}
+	
+	public void switchPlanetsMove(boolean b)
+	{
+		model.switchPlanetsMove( b);
+	}
+	
 	public void setView(View view)
 	{
 		this.view = view;

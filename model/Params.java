@@ -1,13 +1,17 @@
 package model;
 
+import java.awt.Color;
 import java.util.ArrayList;
+
+
 
 public class Params 
 {
+	
 	private Vector mouseVector;
 	public boolean isMousePressed;
-	ArrayList<Planet> planets;
-	
+	private ArrayList<Planet> planets;
+	private Color[][] paths ;
 
 	public Params()
 	{
@@ -34,5 +38,14 @@ public class Params
 	{
 		this.planets = planets;
 	}
-
+	
+	public void setPaths(Color[][] paths ) 
+	{
+		this.paths = paths;
+	}
+	
+	public Color[][] getPaths( ) 
+	{
+		return paths;
+	}
 }

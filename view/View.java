@@ -23,7 +23,7 @@ import model.Observer;
 
 public class View 
 {
-	private final int B_WIDTH = 1000;
+	private final int B_WIDTH = 1200;
 	private final int B_HEIGHT = 600;
 	private final int M_WIDTH = 200;
 	private final int M_HEIGHT = 200;
@@ -54,14 +54,12 @@ public class View
 		
 		lPanel = new JLayeredPane();
 		lPanel.setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-	   
-		GridBagConstraints c = new GridBagConstraints();
 		
 		boardPanel = new BoardPanel(B_WIDTH,B_HEIGHT,controller);
 		menuPanel = new MenuPanel(M_WIDTH,M_HEIGHT,controller);
 	
 		boardPanel.setBounds(0, 0,B_WIDTH,B_HEIGHT);
-		menuPanel.setBounds(0, B_HEIGHT-M_WIDTH,M_WIDTH,M_HEIGHT);
+		menuPanel.setBounds(0, B_HEIGHT-M_HEIGHT,M_WIDTH,M_HEIGHT);
 		
 		lPanel.add(boardPanel, JLayeredPane.DEFAULT_LAYER);
 		lPanel.add(menuPanel, JLayeredPane.PALETTE_LAYER);

@@ -4,14 +4,14 @@ import java.awt.Color;
 
 public class Planet extends Point
 {
-	private int radius;
-	private int velocityX, velocityY;
+	private Double radius;
+	private Double velocityX, velocityY;
 	private int mass;
 	private boolean collided;
 
-	private final int velocityScale = 20;
+	private final int velocityScale = 1;
 	
-	public Planet(int x,int y,int vX,int vY,int mass)
+	public Planet(Double x,Double y,Double vX,Double vY,int mass)
 	{
 		super(x,y);
 		vX/=velocityScale;
@@ -26,13 +26,18 @@ public class Planet extends Point
 	public void calcRadius()
 	{
 		if(mass<10)
-			radius = 4;
-		radius =  new Double(Math.log(mass)).intValue();
+			radius = 4.0;
+		radius = Math.log(mass);
 	}
 	
-	public int getRadius()
+	public Double getDoubleRadius()
 	{
 		return radius;
+	}
+	
+	public int getIntRadius()
+	{
+		return radius.intValue();
 	}
 	
 	public Color getType()
@@ -46,23 +51,23 @@ public class Planet extends Point
 		return Color.RED;
 	}
 
-	public int getVelocityX() 
+	public Double getVelocityX() 
 	{
 		return velocityX;
 	}
 
-	public void setVelocityX(int velocityX) 
+	public void setVelocityX(Double velocityX) 
 	{
 	//	velocityX/=2;
 		this.velocityX = velocityX;
 	}
 
-	public int getVelocityY() 
+	public Double getVelocityY() 
 	{
 		return velocityY;
 	}
 
-	public void setVelocityY(int velocityY) 
+	public void setVelocityY(Double velocityY) 
 	{
 		//velocityY/=2;
 		this.velocityY = velocityY;

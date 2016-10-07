@@ -1,23 +1,31 @@
 package model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import controller.Controller;
 
 public class Model extends Observable
 {
+	private final int B_WIDTH = 1200;
+	private final int B_HEIGHT = 600;
 	Controller controller;
 	Params params;
-	boolean isFirstClickOfMouse;
 	Vector mouseVector;
 	ArrayList<Planet> planets;
+	private Color[][] paths ;
 	int actualMass;
+	boolean isFirstClickOfMouse;
+	boolean shouldMove;
+	
 	
 	public Model()
 	{
 		params = new Params();
 		isFirstClickOfMouse = true;
 		planets = new ArrayList<Planet>();
+		shouldMove = true;
+		paths = new Color[B_WIDTH][B_HEIGHT];
 	}
 	
 	public void setController(Controller c)
@@ -41,10 +49,12 @@ public class Model extends Observable
 	
 	public void update()
 	{
+		if(!shouldMove)
+			return;
 		PlanetPhysics.movePlanets(planets);
 		PlanetPhysics.calculateGravityEffect(planets);
-		System.out.println(planets.size());
 		params.setPlanets(planets);
+		updatePaths();
 		notifyObservers();
 	}
 	
@@ -84,14 +94,36 @@ public class Model extends Observable
 	public void createPlanet()
 	{
 		
-		Planet planet = new Planet(mouseVector.getA().getX(),
-				mouseVector.getA().getY(),
-				mouseVector.getXVec(),mouseVector.getYVec(),controller.getMass());
+		Planet planet = new Planet(mouseVector.getA().getDoubleX(),
+				mouseVector.getA().getDoubleY(),
+				mouseVector.getDoubleXVec(),mouseVector.getDoubleYVec(),controller.getMass());
 		planets.add(planet);
 		params.setPlanets(planets);
 		notifyObservers();
 	}
 	
+	public void clearPlanets()
+	{
+		planets.clear();
+		params.setPlanets(planets);
+		notifyObservers();
+	}
 	
+	public void switchPlanetsMove(boolean b)
+	{
+		shouldMove = b;
+	}
+	
+	private void updatePaths()
+	{
+		for(Planet p: planets)
+		{
+			try{
+				paths[p.getIntX()][p.getIntY()] = p.getType();
+			}catch(ArrayIndexOutOfBoundsException e){
+			}
+		}
+		params.setPaths(paths);
+	}
 	
 }

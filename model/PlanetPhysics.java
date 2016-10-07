@@ -6,18 +6,35 @@ import java.util.Iterator;
 public class PlanetPhysics
 {
 	private static ArrayList<Planet> newPlanets = new ArrayList<Planet>();
+	private static int Border = 1500;
 	public static void movePlanets(ArrayList<Planet>  planets)
 	{
 		for(Planet p : planets)
 		{
 			PlanetPhysics.move(p);
 		}
+		checkBorders(planets);
 	}
 	
 	public static void move(Planet p)
 	{
-		p.setX(p.getX() + p.getVelocityX());
-		p.setY(p.getY() + p.getVelocityY());
+		p.setX(p.getDoubleX() + p.getVelocityX()/50);
+		p.setY(p.getDoubleY() + p.getVelocityY()/50);
+		
+			
+	}
+	
+	public static void checkBorders(ArrayList<Planet>  planets)
+	{
+		for (Iterator<Planet> iterator = planets.iterator(); iterator.hasNext();) 
+		{
+			Planet p = iterator.next();
+		    if(p.getIntX() > Border || p.getIntX()  < 0 ||
+		    		p.getIntY() > Border ||  p.getIntY()  < 0)		    
+		    {
+		        iterator.remove();
+		    }
+		}
 	}
 	
 	public static void calculateGravityEffect(ArrayList<Planet>  planets)
@@ -34,10 +51,10 @@ public class PlanetPhysics
 					continue;
 				radius = mainPlanet.getDistance(otherPlanet);
 				
-				if(radius < mainPlanet.getRadius() + otherPlanet.getRadius()/1.5)
+				if(radius < mainPlanet.getDoubleRadius() + otherPlanet.getDoubleRadius()/1.5)
 				{
-					Planet planet = new Planet(( mainPlanet.getX()+otherPlanet.getX())/2,
-							(( mainPlanet.getY()+otherPlanet.getY())/2),
+					Planet planet = new Planet(( mainPlanet.getDoubleX()+otherPlanet.getDoubleX())/2,
+							(( mainPlanet.getDoubleY()+otherPlanet.getDoubleY())/2),
 							((mainPlanet.getVelocityX()*mainPlanet.getMass()+otherPlanet.getVelocityX()*otherPlanet.getMass())/(mainPlanet.getMass()+otherPlanet.getMass())),
 							((mainPlanet.getVelocityY()*mainPlanet.getMass()+otherPlanet.getVelocityY()*otherPlanet.getMass())/(mainPlanet.getMass()+otherPlanet.getMass())),
 							mainPlanet.getMass()+otherPlanet.getMass());
@@ -45,15 +62,15 @@ public class PlanetPhysics
 					mainPlanet.setCollided(true);
 					otherPlanet.setCollided(true);
 				}
-				xDist = otherPlanet.getX() -  mainPlanet.getX();
-				yDist = otherPlanet.getY() -  mainPlanet.getY();
+				xDist = otherPlanet.getDoubleX() -  mainPlanet.getDoubleX();
+				yDist = otherPlanet.getDoubleY() -  mainPlanet.getDoubleY();
 				
 				vel = otherPlanet.getMass()/(radius*radius);
 				
 				mainPlanet.setVelocityX(mainPlanet.getVelocityX()+ 
-						(new Double(vel*xDist/radius).intValue()));
+						(vel*xDist/(radius*1)));
 				mainPlanet.setVelocityY(mainPlanet.getVelocityY()+ 
-						(new Double(vel*yDist/radius).intValue()));
+						vel*yDist/(radius*1));
 			}
 		}
 		
@@ -71,8 +88,6 @@ public class PlanetPhysics
 		System.out.println(planets.size());
 		planets.addAll(newPlanets);
 		newPlanets.clear();
-		System.out.println("heh");
-		System.out.println(planets.size());
 	}
 	
 }

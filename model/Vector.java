@@ -40,14 +40,24 @@ public class Vector
 		return new Double(Math.sqrt(Math.pow(a.x - b.x,2) + Math.pow(a.y - b.y,2))).intValue();
 	}
 	
-	public int getXVec()
+	public Double getDoubleXVec()
 	{
 		return (b.x - a.x);
 	}
 	
-	public int getYVec()
+	public Double getDoubleYVec()
 	{
 		return (b.y - a.y);
+	}
+	
+	public Integer getIntXVec()
+	{
+		return new Double(b.x - a.x).intValue();
+	}
+	
+	public Integer getIntYVec()
+	{
+		return  new Double(b.y - a.y).intValue();
 	}
 
 	

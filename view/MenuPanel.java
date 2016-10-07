@@ -20,7 +20,8 @@ import controller.Controller;
 
 public class MenuPanel extends JPanel 
 {
-	private JButton buttonTiny, buttonSmall, buttonMedium, buttonLarge, buttonHuge;
+	private JButton buttonTiny, buttonSmall, buttonMedium, 
+		buttonLarge, buttonHuge, buttonClear, buttonMove;
 	private JTextField textMass;
 	private Controller controller;
 	
@@ -82,6 +83,16 @@ public class MenuPanel extends JPanel
 		c.gridx = 1;
 		c.gridy = 0;
 		add(textMass,c);
+		
+		buttonMove = new JButton("Stop");
+		c.gridx = 1;
+		c.gridy = 4;
+		add(buttonMove,c);
+		
+		buttonClear = new JButton("Clear");
+		c.gridx = 1;
+		c.gridy = 5;
+		add(buttonClear,c);
 	}
 	
 	public void setupListeners()
@@ -113,6 +124,27 @@ public class MenuPanel extends JPanel
 		buttonHuge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textMass.setText("1000000");
+			}
+		});
+		
+		buttonClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.clearPlanets();
+			}
+		});
+		
+		buttonMove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(buttonMove.getText().equals("Stop"))
+				{
+					controller.switchPlanetsMove(false);
+					buttonMove.setText("Start");
+				}
+				else
+				{
+					controller.switchPlanetsMove(true);
+					buttonMove.setText("Stop");
+				}
 			}
 		});
 	}

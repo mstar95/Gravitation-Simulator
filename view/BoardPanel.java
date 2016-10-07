@@ -20,7 +20,7 @@ public class BoardPanel extends JPanel  implements ActionListener, Observer
 	private Params params;
 	private Timer timer;
 	private Controller controller;
-	private final int DELAY = 10;
+	private final int DELAY = 50;
 	public BoardPanel(int width,int height,Controller c)
 	{
 		setPreferredSize(new Dimension(width, height));
@@ -54,6 +54,7 @@ public class BoardPanel extends JPanel  implements ActionListener, Observer
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
         drawMauseVector(g2d);
+        drawPaths(g2d);
         drawPlanets(g2d);
         repaint();
      }
@@ -63,10 +64,10 @@ public class BoardPanel extends JPanel  implements ActionListener, Observer
 		if(params.isMousePressed == true)
 		{    	
 	       	g2d.setColor(Color.GREEN);
-	       	g2d.drawLine(params.getMouseVector().getA().getX(),
-	       		params.getMouseVector().getA().getY(),
-	       		params.getMouseVector().getB().getX(),
-        		params.getMouseVector().getB().getY());
+	       	g2d.drawLine(params.getMouseVector().getA().getIntX(),
+	       		params.getMouseVector().getA().getIntY(),
+	       		params.getMouseVector().getB().getIntX(),
+        		params.getMouseVector().getB().getIntY());
         }
 		repaint();
 	}
@@ -78,7 +79,28 @@ public class BoardPanel extends JPanel  implements ActionListener, Observer
 		for(Planet p : params.getPlanets())
 		{
 			g2d.setColor(p.getType());
-			g2d.fillOval(p.getX(), p.getY(), p.getRadius(), p.getRadius());
+			g2d.fillOval(p.getIntX(), p.getIntY(), p.getIntRadius(), p.getIntRadius());
+		}
+		repaint();
+	}
+	
+	private void drawPaths(Graphics2D g2d)
+	{
+		if (params.getPaths() == null)
+			return;
+		Color[][] paths = params.getPaths();
+		int width = this.getWidth();
+		int height = this.getHeight();
+		for(int i = 0; i != width;i++)
+		{
+			for(int j = 0; j != height;j++)
+			{
+				if(paths[i][j] == null)
+					g2d.setColor(Color.BLACK);
+				else
+					g2d.setColor(paths[i][j]);
+				g2d.fillOval(i, j, 5, 5);
+			}
 		}
 		repaint();
 	}
