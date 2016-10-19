@@ -6,11 +6,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import controller.Controller;
+import model.Mark;
 import model.Observer;
 import model.Params;
 import model.Planet;
@@ -88,20 +90,11 @@ public class BoardPanel extends JPanel  implements ActionListener, Observer
 	{
 		if (params.getPaths() == null)
 			return;
-		Color[][] paths = params.getPaths();
-		int width = this.getWidth();
-		int height = this.getHeight();
-		for(int i = 0; i != width;i++)
-		{
-			for(int j = 0; j != height;j++)
-			{
-				if(paths[i][j] == null)
-					g2d.setColor(Color.BLACK);
-				else
-					g2d.setColor(paths[i][j]);
-				g2d.fillOval(i, j, 5, 5);
-			}
-		}
+		LinkedList<Mark> paths = params.getPaths();
+		paths.forEach(m->{
+			g2d.setColor(m.getColor());
+			g2d.fillOval(m.getIntX(), m.getIntY(), 3,3);
+		});
 		repaint();
 	}
 }

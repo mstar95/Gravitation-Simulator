@@ -2,12 +2,13 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class PlanetPhysics
 {
-	private static ArrayList<Planet> newPlanets = new ArrayList<Planet>();
+	private static LinkedList<Planet> newPlanets = new LinkedList<Planet>();
 	private static int Border = 1500;
-	public static void movePlanets(ArrayList<Planet>  planets)
+	public static void movePlanets(LinkedList<Planet>  planets)
 	{
 		for(Planet p : planets)
 		{
@@ -24,7 +25,7 @@ public class PlanetPhysics
 			
 	}
 	
-	public static void checkBorders(ArrayList<Planet>  planets)
+	public static void checkBorders(LinkedList<Planet>  planets)
 	{
 		for (Iterator<Planet> iterator = planets.iterator(); iterator.hasNext();) 
 		{
@@ -37,7 +38,7 @@ public class PlanetPhysics
 		}
 	}
 	
-	public static void calculateGravityEffect(ArrayList<Planet>  planets)
+	public static void calculateGravityEffect(LinkedList<Planet>  planets)
 	{
 		if(planets.size()<2) return;
 		
@@ -85,7 +86,6 @@ public class PlanetPhysics
 		        iterator.remove();
 		    }
 		}
-		System.out.println(planets.size());
 		planets.addAll(newPlanets);
 		newPlanets.clear();
 	}

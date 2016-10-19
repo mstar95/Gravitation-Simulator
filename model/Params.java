@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 
@@ -10,8 +11,8 @@ public class Params
 	
 	private Vector mouseVector;
 	public boolean isMousePressed;
-	private ArrayList<Planet> planets;
-	private Color[][] paths ;
+	private LinkedList<Planet> planets;
+	private LinkedList<Mark> paths;
 
 	public Params()
 	{
@@ -29,22 +30,22 @@ public class Params
 		this.mouseVector = mouseVector;
 	}
 	
-	public ArrayList<Planet> getPlanets() 
+	public LinkedList<Planet> getPlanets() 
 	{
 		return planets;
 	}
 
-	public void setPlanets(ArrayList<Planet> planets) 
+	public void setPlanets(LinkedList<Planet> planets) 
 	{
 		this.planets = planets;
 	}
 	
-	public void setPaths(Color[][] paths ) 
+	public void setPaths(LinkedList<Mark> paths ) 
 	{
 		this.paths = paths;
 	}
 	
-	public Color[][] getPaths( ) 
+	public LinkedList<Mark> getPaths( ) 
 	{
 		return paths;
 	}

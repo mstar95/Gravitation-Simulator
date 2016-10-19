@@ -2,18 +2,17 @@ package model;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import controller.Controller;
 
 public class Model extends Observable
 {
-	private final int B_WIDTH = 1200;
-	private final int B_HEIGHT = 600;
 	Controller controller;
 	Params params;
 	Vector mouseVector;
-	ArrayList<Planet> planets;
-	private Color[][] paths ;
+	LinkedList<Planet> planets;
+	LinkedList<Mark> paths ;
 	int actualMass;
 	boolean isFirstClickOfMouse;
 	boolean shouldMove;
@@ -23,9 +22,9 @@ public class Model extends Observable
 	{
 		params = new Params();
 		isFirstClickOfMouse = true;
-		planets = new ArrayList<Planet>();
+		planets = new LinkedList<Planet>();
 		shouldMove = true;
-		paths = new Color[B_WIDTH][B_HEIGHT];
+		paths = new LinkedList<Mark>();
 	}
 	
 	public void setController(Controller c)
@@ -118,10 +117,7 @@ public class Model extends Observable
 	{
 		for(Planet p: planets)
 		{
-			try{
-				paths[p.getIntX()][p.getIntY()] = p.getType();
-			}catch(ArrayIndexOutOfBoundsException e){
-			}
+			paths.add(new Mark(p.getDoubleX(),p.getDoubleY(),p.getType()));
 		}
 		params.setPaths(paths);
 	}
